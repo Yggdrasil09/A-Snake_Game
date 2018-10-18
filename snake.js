@@ -1,49 +1,60 @@
-var x=0,y=0;
-
-var dir=0;
+var snk;
+var size;
 
 function setup()
 {
     var canvas=createCanvas(600, 600);
     background(0, 0, 0);
     canvas.position((windowWidth - width) / 2,(windowHeight - height) / 2);
+    frameRate(40);
+    snk=new Snake();
 }
 
 function draw()
 {
-    rect(x,y,10,10);
-    switch(dir)
+    snk.update();
+    snk.show();
+}
+
+function keyPressed()
+{
+    if(keyCode===UP_ARROW)
     {
-        case 0:
-                y++;
-                break;
-        case 1:
-                y--;
-                break;
-        case 2:
-                x++;
-                break;
-        case 3:
-                x--;
+        snk.direc(0,-1);
+    }
+    else if(keyCode===DOWN_ARROW)
+    {
+        snk.direc(0,1);
+    }
+    else if(keyCode===RIGHT_ARROW)
+    {
+        snk.direc(1,0);
+    }
+    else if(keyCode===LEFT_ARROW)
+    {
+        snk.direc(-1,0);
     }
 }
 
-function keyTyped()
+function Snake()
 {
-    if(key=='s'||key=='S')
+    this.x=0;
+    this.y=0;
+    this.xSpeed=1;
+    this.ySpeed=0;
+    this.direc=function(x,y)
     {
-        dir=0;
+        this.xSpeed=x;
+        this.ySpeed=y;
     }
-    else if(key=='w'||key=='W')
+    this.update=function()
     {
-        dir=1;
+        this.x+=this.xSpeed;
+        this.y+=this.ySpeed;
     }
-    else if(key=='d'||key=='D')
+    this.show=function()
     {
-        dir=2;
-    }
-    else if(key=='a'||key=='A')
-    {
-        dir=3;
+        fill(255,255,255);
+        rect(this.x,this.y,10,10);
     }
 }
