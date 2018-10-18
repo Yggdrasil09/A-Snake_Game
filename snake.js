@@ -1,5 +1,8 @@
 var snk;
-var size;
+
+var slength=15;
+
+var food;
 
 function setup()
 {
@@ -8,12 +11,17 @@ function setup()
     canvas.position((windowWidth - width) / 2,(windowHeight - height) / 2);
     frameRate(40);
     snk=new Snake();
+    frameRate(10);
+    food=createVector(random(width),random(height));
 }
 
 function draw()
 {
+    background(0, 0, 0);
     snk.update();
     snk.show();
+    fill(230,30,230);
+    rect(food.x,food.y,slength,slength);
 }
 
 function keyPressed()
@@ -46,15 +54,18 @@ function Snake()
     {
         this.xSpeed=x;
         this.ySpeed=y;
-    }
+    };
     this.update=function()
     {
-        this.x+=this.xSpeed;
-        this.y+=this.ySpeed;
-    }
+        this.x+=this.xSpeed*slength;
+        this.y+=this.ySpeed*slength;
+
+        this.x=constrain(this.x,0,width-slength);
+        this.y=constrain(this.y,0,height-slength);
+    };
     this.show=function()
     {
         fill(255,255,255);
-        rect(this.x,this.y,10,10);
-    }
+        rect(this.x,this.y,slength,slength);
+    };
 }
