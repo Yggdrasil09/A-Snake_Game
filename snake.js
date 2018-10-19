@@ -4,6 +4,8 @@ var slength=15;
 
 var food;
 
+var score1=0;
+
 function setup()
 {
     var canvas=createCanvas(600,600);
@@ -29,12 +31,14 @@ function draw()
     if(snk.eatfood(food))
     {
         relocat();
+        score1+=5;
     }
     snk.death();
     snk.update();
     snk.show();
     fill(230,30,230);
     rect(food.x,food.y,slength,slength);
+    document.getElementById("score").innerHTML=score1;
 }
 
 function keyPressed()
@@ -124,6 +128,7 @@ function Snake()
             {
                 this.total=0;
                 this.tail=[];
+                score1=0;
             }
         }
     };
