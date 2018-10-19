@@ -26,12 +26,13 @@ function relocat()
 function draw()
 {
     background(0, 0, 0);
-    snk.update();
-    snk.show();
     if(snk.eatfood(food))
     {
         relocat();
     }
+    snk.death();
+    snk.update();
+    snk.show();
     fill(230,30,230);
     rect(food.x,food.y,slength,slength);
 }
@@ -64,11 +65,13 @@ function Snake()
     this.ySpeed=0;
     this.total=0;
     this.tail=[];
+    
     this.direc=function(x,y)
     {
         this.xSpeed=x;
         this.ySpeed=y;
     };
+
     this.eatfood=function(pos)
     {
         var d=dist(this.x,this.y,pos.x,pos.y);
@@ -82,6 +85,7 @@ function Snake()
             return false;
         }
     };
+
     this.update=function()
     {
         if(this.total===this.tail.length)
@@ -99,6 +103,7 @@ function Snake()
         this.y=constrain(this.y,0,height-slength);
 
     };
+
     this.show=function()
     {
         fill(255,255,255);
@@ -107,5 +112,19 @@ function Snake()
             rect(this.tail[i].x,this.tail[i].y,slength,slength);
         }
         rect(this.x,this.y,slength,slength);
+    };
+
+    this.death = function()
+    {
+        for(var i=0;i<this.tail.length;i++)
+        {
+            var pos1=this.tail[i];
+            var d=dist(this.x,this.y,pos1.x,pos1.y);
+            if(d<1)
+            {
+                this.total=0;
+                this.tail=[];
+            }
+        }
     };
 }
