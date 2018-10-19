@@ -6,7 +6,7 @@ var food;
 
 function setup()
 {
-    var canvas=createCanvas(600, 600);
+    var canvas=createCanvas(600,600);
     background(0, 0, 0);
     canvas.position((windowWidth - width) / 2,(windowHeight - height) / 2);
     frameRate(40);
