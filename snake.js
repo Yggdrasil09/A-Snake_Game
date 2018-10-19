@@ -36,7 +36,7 @@ function draw()
     snk.death();
     snk.update();
     snk.show();
-    fill(230,30,230);
+    fill(230,30,30);
     rect(food.x,food.y,slength,slength);
     document.getElementById("score").innerHTML=score1;
 }
